@@ -5,14 +5,14 @@ layout: home
 
 # About Me
 
-Hi! I'm Yuqi, and this is my personal website.
+Hi! I'm Yuqi, a post-doc researcher working in Stockholm, Sweden.
 
 ## What I Do
 
 I'm interested in:
 - Data analysis
-- Research
-- Technology
+- Epidemiology and cancer research
+- Rock climbing 🧗‍♀️
 
 ## Contact
 
