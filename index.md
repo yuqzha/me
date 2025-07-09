@@ -17,7 +17,7 @@ I'm interested in:
 ## Contact
 
 Feel free to reach out:
-- GitHub: [yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
+- GitHub: [yuqzha](https://github.com/yuqzha)
+- Email: yuqizhang.epi@gmail.com
 
 *Last updated: July 2025*
