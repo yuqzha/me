@@ -20,7 +20,7 @@ With help from Claude, I made a plan for the summer- half work half break balanc
 
     **Features I like**
       - calender structure with color
-      - editable on html
+      - editable on html (localStorage functionality)
       - checkbox (who doesn't like to tick off something when it's done 🙌)
 
 Most importantly, let's hope this works well to help me be productive and focused!
