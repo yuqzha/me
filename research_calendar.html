@@ -1,0 +1,744 @@
+            <div class="day">
+                <div class="day-header">MON</div>
+                <div class="day-number">28</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Paper final review</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Application focus</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
+            </div>
+            
+            <!-- Week 3 Header -->
+            <div class="week-header">Week 3: Final Polish & Application</div>
+            
+            <!-- Week 3 Days -->
+            <div class="day">
+                <div class="day-header">TUE</div>
+                <div class="day-number">29</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Paper polishing</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Heavy application work</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
+                <div class="priority-note editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Draft complete target</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">WED</div>
+                <div class="day-number">30</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Final paper edits</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Application work</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">THU</div>
+                <div class="day-number">31</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Paper submission prep</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Finalize application</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">FRI</div>
+                <div class="day-number">1</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Final submission</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Application complete</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
+                <div class="priority-note editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Final push!</div>
+                </div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SAT</div>
+                <div class="day-number">2</div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Full day with parent</div>
+                </div>
+                <div class="priority-note editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Celebrate completion!</div>
+                </div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SUN</div>
+                <div class="day-number">3</div>
+                <div class="weekend-work editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research & Family Time Calendar</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .calendar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #e9ecef;
+            padding: 1px;
+        }
+        
+        .day {
+            background: white;
+            min-height: 140px;
+            padding: 10px;
+            position: relative;
+            border-radius: 4px;
+        }
+        
+        .day-header {
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        
+        .day-number {
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .work-block {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-bottom: 3px;
+            border-left: 3px solid #2196f3;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .family-block {
+            background: #f3e5f5;
+            color: #7b1fa2;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-bottom: 3px;
+            border-left: 3px solid #9c27b0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .weekend-work {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-bottom: 3px;
+            border-left: 3px solid #4caf50;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .priority-note {
+            background: #fff3e0;
+            color: #f57c00;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            border-left: 3px solid #ff9800;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .task-checkbox {
+            width: 16px;
+            height: 16px;
+            border: 2px solid currentColor;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+        
+        .task-checkbox:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .task-checkbox.checked {
+            background-color: currentColor;
+            color: white;
+        }
+        
+        .task-checkbox.checked::before {
+            content: '✓';
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .task-text {
+            flex: 1;
+            transition: all 0.2s ease;
+        }
+        
+        .task-completed .task-text {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
+        .task-completed {
+            opacity: 0.8;
+        }
+        
+        .edit-mode {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .edit-mode:hover {
+            background: #34495e;
+            transform: translateY(-2px);
+        }
+        
+        .edit-mode.active {
+            background: #e74c3c;
+        }
+        
+        .editable {
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .editable:hover {
+            background-color: #f8f9fa !important;
+            outline: 2px dashed #007bff;
+        }
+        
+        .edit-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            z-index: 2000;
+            min-width: 300px;
+            max-width: 500px;
+        }
+        
+        .edit-popup textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+        }
+        
+        .edit-popup button {
+            padding: 8px 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .save-btn {
+            background: #28a745;
+            color: white;
+        }
+        
+        .cancel-btn {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1500;
+        }
+        
+        .week-header {
+            grid-column: 1 / -1;
+            background: #2c3e50;
+            color: white;
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        
+        .today {
+            background: #fff9c4 !important;
+            border: 2px solid #ffc107;
+        }
+        
+        .weekend {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar-container">
+        <div class="edit-mode" onclick="toggleEditMode()">
+            <span id="edit-text">🖊️ Edit Mode</span>
+        </div>
+        
+        <div class="header">
+            <h1>Research & Family Time Calendar</h1>
+            <p>July 16 - August 3, 2025 | Parent Visit Period</p>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #2196f3;"></div>
+                <span>Weekday Work (9am-4pm)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #4caf50;"></div>
+                <span>Weekend Work (Morning)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #9c27b0;"></div>
+                <span>Leisure Time</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ff9800;"></div>
+                <span>Priority Focus</span>
+            </div>
+        </div>
+        
+        <div class="calendar">
+            <!-- Week 1 Header -->
+            <div class="week-header">Week 1: Foundation Phase</div>
+            
+            <!-- Week 1 Days -->
+            <div class="day">
+                <div class="day-header">TUE</div>
+                <div class="day-number">15</div>
+                <div style="color: #6c757d; font-size: 0.8em;">Prep day</div>
+            </div>
+            
+            <div class="day today">
+                <div class="day-header">WED</div>
+                <div class="day-number">16</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Methods section</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Results section</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
+                <div class="priority-note editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Start strong!</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">THU</div>
+                <div class="day-number">17</div>
+                <div class="work-block">9am-12pm: Methods section</div>
+                <div class="work-block">1pm-4pm: Continue methods</div>
+                <div class="family-block">4pm+: Family time</div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">FRI</div>
+                <div class="day-number">18</div>
+                <div class="work-block">9am-12pm: Methods complete</div>
+                <div class="work-block">1pm-4pm: Results start</div>
+                <div class="family-block">4pm+: Family time</div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SAT</div>
+                <div class="day-number">19</div>
+                <div class="family-block">Full day with parent</div>
+                <div class="priority-note">Enjoy family time!</div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SUN</div>
+                <div class="day-number">20</div>
+                <div class="weekend-work">9am-1pm: Paper writing</div>
+                <div class="family-block">1pm+: Family time</div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">MON</div>
+                <div class="day-number">21</div>
+                <div class="work-block">9am-12pm: Results section</div>
+                <div class="work-block">1pm-4pm: Continue results</div>
+                <div class="family-block">4pm+: Family time</div>
+            </div>
+            
+            <!-- Week 2 Header -->
+            <div class="week-header">Week 2: Content Development</div>
+            
+            <!-- Week 2 Days -->
+            <div class="day">
+                <div class="day-header">TUE</div>
+                <div class="day-number">22</div>
+                <div class="work-block">9am-12pm: Results section</div>
+                <div class="work-block">1pm-4pm: Discussion start</div>
+                <div class="family-block">4pm+: Family time</div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">WED</div>
+                <div class="day-number">23</div>
+                <div class="work-block">9am-12pm: Discussion</div>
+                <div class="work-block">1pm-4pm: Continue discussion</div>
+                <div class="family-block">4pm+: Family time</div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">THU</div>
+                <div class="day-number">24</div>
+                <div class="work-block">9am-12pm: Paper writing</div>
+                <div class="work-block">1pm-4pm: Review old application</div>
+                <div class="family-block">4pm+: Family time</div>
+                <div class="priority-note">Start application work</div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">FRI</div>
+                <div class="day-number">25</div>
+                <div class="work-block">9am-12pm: Paper writing</div>
+                <div class="work-block">1pm-4pm: Application updates</div>
+                <div class="family-block">4pm+: Family time</div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SAT</div>
+                <div class="day-number">26</div>
+                <div class="family-block">Full day with parent</div>
+                <div class="priority-note">Midpoint break</div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SUN</div>
+                <div class="day-number">27</div>
+                <div class="weekend-work">9am-1pm: Application work</div>
+                <div class="family-block">1pm+: Family time</div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">MON</div>
+                <div class="day-number">28</div>
+                <div class="work-block">9am-12pm: Complete paper draft</div>
+                <div class="work-block">1pm-4pm: Application focus</div>
+                <div class="family-block">4pm+: Family time</div>
+            </div>
+            
+            <!-- Week 3 Header -->
+            <div class="week-header">Week 3: Completion & Polish</div>
+            
+            <!-- Week 3 Days -->
+            <div class="day">
+                <div class="day-header">TUE</div>
+                <div class="day-number">29</div>
+                <div class="work-block">9am-12pm: Paper draft done</div>
+                <div class="work-block">1pm-4pm: Heavy application work</div>
+                <div class="family-block">4pm+: Family time</div>
+                <div class="priority-note">Draft complete target</div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">WED</div>
+                <div class="day-number">30</div>
+                <div class="work-block">9am-12pm: Paper self-review</div>
+                <div class="work-block">1pm-4pm: Application work</div>
+                <div class="family-block">4pm+: Family time</div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">THU</div>
+                <div class="day-number">31</div>
+                <div class="work-block">9am-12pm: Paper polishing</div>
+                <div class="work-block">1pm-4pm: Finalize application</div>
+                <div class="family-block">4pm+: Family time</div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">FRI</div>
+                <div class="day-number">1</div>
+                <div class="work-block">9am-12pm: Final paper review</div>
+                <div class="work-block">1pm-4pm: Application complete</div>
+                <div class="family-block">4pm+: Family time</div>
+                <div class="priority-note">Final push!</div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SAT</div>
+                <div class="day-number">2</div>
+                <div class="family-block">Full day with parent</div>
+                <div class="priority-note">Celebrate completion!</div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SUN</div>
+                <div class="day-number">3</div>
+                <div class="weekend-work">Morning: Final touches</div>
+                <div class="family-block">Afternoon: Family time</div>
+                <div class="priority-note">Mission complete!</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let editMode = false;
+        let currentEditElement = null;
+        
+        function toggleEditMode() {
+            editMode = !editMode;
+            const editButton = document.querySelector('.edit-mode');
+            const editText = document.getElementById('edit-text');
+            
+            if (editMode) {
+                editButton.classList.add('active');
+                editText.innerHTML = '✅ Exit Edit';
+                document.body.style.userSelect = 'none';
+            } else {
+                editButton.classList.remove('active');
+                editText.innerHTML = '🖊️ Edit Mode';
+                document.body.style.userSelect = 'auto';
+            }
+        }
+        
+        function editTask(element) {
+            if (!editMode) return;
+            
+            currentEditElement = element;
+            const taskText = element.querySelector('.task-text');
+            const currentText = taskText ? taskText.textContent : element.textContent;
+            
+            // Create overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'overlay';
+            overlay.onclick = closeEditPopup;
+            
+            // Create popup
+            const popup = document.createElement('div');
+            popup.className = 'edit-popup';
+            popup.innerHTML = `
+                <h3>Edit Task</h3>
+                <textarea id="edit-textarea" placeholder="Enter your task...">${currentText}</textarea>
+                <div style="text-align: right; margin-top: 10px;">
+                    <button class="cancel-btn" onclick="closeEditPopup()">Cancel</button>
+                    <button class="save-btn" onclick="saveEdit()">Save</button>
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+            document.body.appendChild(popup);
+            
+            // Focus on textarea
+            document.getElementById('edit-textarea').focus();
+            document.getElementById('edit-textarea').select();
+        }
+        
+        function saveEdit() {
+            const newText = document.getElementById('edit-textarea').value;
+            if (newText.trim() && currentEditElement) {
+                const taskText = currentEditElement.querySelector('.task-text');
+                if (taskText) {
+                    taskText.textContent = newText;
+                } else {
+                    currentEditElement.textContent = newText;
+                }
+            }
+            closeEditPopup();
+        }
+        
+        function toggleTask(event, checkbox) {
+            event.stopPropagation();
+            
+            const taskBlock = checkbox.closest('.work-block, .family-block, .weekend-work, .priority-note');
+            
+            if (checkbox.classList.contains('checked')) {
+                checkbox.classList.remove('checked');
+                taskBlock.classList.remove('task-completed');
+            } else {
+                checkbox.classList.add('checked');
+                taskBlock.classList.add('task-completed');
+            }
+        }
+        
+        function closeEditPopup() {
+            const overlay = document.querySelector('.overlay');
+            const popup = document.querySelector('.edit-popup');
+            
+            if (overlay) overlay.remove();
+            if (popup) popup.remove();
+            
+            currentEditElement = null;
+        }
+        
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeEditPopup();
+            }
+            if (e.key === 'Enter' && e.ctrlKey) {
+                saveEdit();
+            }
+        });
+        
+        // Make all task blocks editable and add checkboxes
+        document.addEventListener('DOMContentLoaded', function() {
+            const taskBlocks = document.querySelectorAll('.work-block, .family-block, .weekend-work, .priority-note');
+            taskBlocks.forEach(block => {
+                // Skip if already processed
+                if (block.querySelector('.task-checkbox')) return;
+                
+                const originalText = block.textContent;
+                block.innerHTML = `
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">${originalText}</div>
+                `;
+                
+                if (!block.classList.contains('editable')) {
+                    block.classList.add('editable');
+                    block.onclick = function() { editTask(this); };
+                }
+            });
+        });
+    </script>
+</body>
+</html>
