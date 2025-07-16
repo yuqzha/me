@@ -14,6 +14,8 @@ I'm interested in:
 - Epidemiology and cancer research
 - Rock climbing 🧗‍♀️
 
+## [Summer calendar](research_calendar.html)
+
 ## Contact
 
 Feel free to reach out:
