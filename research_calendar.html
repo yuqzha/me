@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research & Family Time Calendar</title>
+    <title>Research & Leisure Time Calendar</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -299,7 +299,7 @@
         </div>
         
         <div class="header">
-            <h1>Research & Family Time Calendar</h1>
+            <h1>Research & Leisure Time Calendar</h1>
             <p>July 16 - August 3, 2025 | Parent Visit Period</p>
         </div>
         
@@ -357,98 +357,197 @@
             <div class="day">
                 <div class="day-header">THU</div>
                 <div class="day-number">17</div>
-                <div class="work-block">9am-12pm: Methods section</div>
-                <div class="work-block">1pm-4pm: Continue methods</div>
-                <div class="family-block">4pm+: Family time</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Methods complete</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Results complete</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
             </div>
             
             <div class="day">
                 <div class="day-header">FRI</div>
                 <div class="day-number">18</div>
-                <div class="work-block">9am-12pm: Methods complete</div>
-                <div class="work-block">1pm-4pm: Results start</div>
-                <div class="family-block">4pm+: Family time</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Abstract & highlights</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Intro reading & planning</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
             </div>
             
             <div class="day weekend">
                 <div class="day-header">SAT</div>
                 <div class="day-number">19</div>
-                <div class="family-block">Full day with parent</div>
-                <div class="priority-note">Enjoy family time!</div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Full day with parent</div>
+                </div>
+                <div class="priority-note editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Enjoy leisure time!</div>
+                </div>
             </div>
             
             <div class="day weekend">
                 <div class="day-header">SUN</div>
                 <div class="day-number">20</div>
-                <div class="weekend-work">9am-1pm: Paper writing</div>
-                <div class="family-block">1pm+: Family time</div>
+                <div class="weekend-work editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-1pm: Intro literature review</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm+: Leisure time</div>
+                </div>
             </div>
             
             <div class="day">
                 <div class="day-header">MON</div>
                 <div class="day-number">21</div>
-                <div class="work-block">9am-12pm: Results section</div>
-                <div class="work-block">1pm-4pm: Continue results</div>
-                <div class="family-block">4pm+: Family time</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Intro writing</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Continue intro</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
             </div>
             
             <!-- Week 2 Header -->
-            <div class="week-header">Week 2: Content Development</div>
+            <div class="week-header">Week 2: Intro & Discussion Focus (60% of writing time)</div>
             
             <!-- Week 2 Days -->
             <div class="day">
                 <div class="day-header">TUE</div>
                 <div class="day-number">22</div>
-                <div class="work-block">9am-12pm: Results section</div>
-                <div class="work-block">1pm-4pm: Discussion start</div>
-                <div class="family-block">4pm+: Family time</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Intro completion</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Discussion literature review</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
             </div>
             
             <div class="day">
                 <div class="day-header">WED</div>
                 <div class="day-number">23</div>
-                <div class="work-block">9am-12pm: Discussion</div>
-                <div class="work-block">1pm-4pm: Continue discussion</div>
-                <div class="family-block">4pm+: Family time</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Discussion writing</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Continue discussion</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
             </div>
             
             <div class="day">
                 <div class="day-header">THU</div>
                 <div class="day-number">24</div>
-                <div class="work-block">9am-12pm: Paper writing</div>
-                <div class="work-block">1pm-4pm: Review old application</div>
-                <div class="family-block">4pm+: Family time</div>
-                <div class="priority-note">Start application work</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Discussion completion</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Review old application</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
+                <div class="priority-note editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Start application work</div>
+                </div>
             </div>
             
             <div class="day">
                 <div class="day-header">FRI</div>
                 <div class="day-number">25</div>
-                <div class="work-block">9am-12pm: Paper writing</div>
-                <div class="work-block">1pm-4pm: Application updates</div>
-                <div class="family-block">4pm+: Family time</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Overall paper checking</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Application updates</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
             </div>
             
             <div class="day weekend">
                 <div class="day-header">SAT</div>
                 <div class="day-number">26</div>
-                <div class="family-block">Full day with parent</div>
-                <div class="priority-note">Midpoint break</div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Full day with parent</div>
+                </div>
+                <div class="priority-note editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Midpoint break</div>
+                </div>
             </div>
             
             <div class="day weekend">
                 <div class="day-header">SUN</div>
                 <div class="day-number">27</div>
-                <div class="weekend-work">9am-1pm: Application work</div>
-                <div class="family-block">1pm+: Family time</div>
+                <div class="weekend-work editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-1pm: Application work</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm+: Leisure time</div>
+                </div>
             </div>
             
             <div class="day">
                 <div class="day-header">MON</div>
                 <div class="day-number">28</div>
-                <div class="work-block">9am-12pm: Complete paper draft</div>
-                <div class="work-block">1pm-4pm: Application focus</div>
-                <div class="family-block">4pm+: Family time</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Complete paper draft</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Application focus</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
             </div>
             
             <!-- Week 3 Header -->
@@ -458,50 +557,107 @@
             <div class="day">
                 <div class="day-header">TUE</div>
                 <div class="day-number">29</div>
-                <div class="work-block">9am-12pm: Paper draft done</div>
-                <div class="work-block">1pm-4pm: Heavy application work</div>
-                <div class="family-block">4pm+: Family time</div>
-                <div class="priority-note">Draft complete target</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Paper draft done</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Heavy application work</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
+                <div class="priority-note editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Draft complete target</div>
+                </div>
             </div>
             
             <div class="day">
                 <div class="day-header">WED</div>
                 <div class="day-number">30</div>
-                <div class="work-block">9am-12pm: Paper self-review</div>
-                <div class="work-block">1pm-4pm: Application work</div>
-                <div class="family-block">4pm+: Family time</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Paper self-review</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Application work</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
             </div>
             
             <div class="day">
                 <div class="day-header">THU</div>
                 <div class="day-number">31</div>
-                <div class="work-block">9am-12pm: Paper polishing</div>
-                <div class="work-block">1pm-4pm: Finalize application</div>
-                <div class="family-block">4pm+: Family time</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Paper polishing</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Finalize application</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
             </div>
             
             <div class="day">
                 <div class="day-header">FRI</div>
                 <div class="day-number">1</div>
-                <div class="work-block">9am-12pm: Final paper review</div>
-                <div class="work-block">1pm-4pm: Application complete</div>
-                <div class="family-block">4pm+: Family time</div>
-                <div class="priority-note">Final push!</div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">9am-12pm: Final paper review</div>
+                </div>
+                <div class="work-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">1pm-4pm: Application complete</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">4pm+: Leisure time</div>
+                </div>
+                <div class="priority-note editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Final push!</div>
+                </div>
             </div>
             
             <div class="day weekend">
                 <div class="day-header">SAT</div>
                 <div class="day-number">2</div>
-                <div class="family-block">Full day with parent</div>
-                <div class="priority-note">Celebrate completion!</div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Full day with parent</div>
+                </div>
+                <div class="priority-note editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Celebrate completion!</div>
+                </div>
             </div>
             
             <div class="day weekend">
                 <div class="day-header">SUN</div>
                 <div class="day-number">3</div>
-                <div class="weekend-work">Morning: Final touches</div>
-                <div class="family-block">Afternoon: Family time</div>
-                <div class="priority-note">Mission complete!</div>
+                <div class="weekend-work editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Morning: Final touches</div>
+                </div>
+                <div class="family-block editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Afternoon: Leisure time</div>
+                </div>
+                <div class="priority-note editable" onclick="editTask(this)">
+                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
+                    <div class="task-text">Mission complete!</div>
+                </div>
             </div>
         </div>
     </div>
@@ -562,68 +718,4 @@
             const newText = document.getElementById('edit-textarea').value;
             if (newText.trim() && currentEditElement) {
                 const taskText = currentEditElement.querySelector('.task-text');
-                if (taskText) {
-                    taskText.textContent = newText;
-                } else {
-                    currentEditElement.textContent = newText;
-                }
-            }
-            closeEditPopup();
-        }
-        
-        function toggleTask(event, checkbox) {
-            event.stopPropagation();
-            
-            const taskBlock = checkbox.closest('.work-block, .family-block, .weekend-work, .priority-note');
-            
-            if (checkbox.classList.contains('checked')) {
-                checkbox.classList.remove('checked');
-                taskBlock.classList.remove('task-completed');
-            } else {
-                checkbox.classList.add('checked');
-                taskBlock.classList.add('task-completed');
-            }
-        }
-        
-        function closeEditPopup() {
-            const overlay = document.querySelector('.overlay');
-            const popup = document.querySelector('.edit-popup');
-            
-            if (overlay) overlay.remove();
-            if (popup) popup.remove();
-            
-            currentEditElement = null;
-        }
-        
-        // Add keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeEditPopup();
-            }
-            if (e.key === 'Enter' && e.ctrlKey) {
-                saveEdit();
-            }
-        });
-        
-        // Make all task blocks editable and add checkboxes
-        document.addEventListener('DOMContentLoaded', function() {
-            const taskBlocks = document.querySelectorAll('.work-block, .family-block, .weekend-work, .priority-note');
-            taskBlocks.forEach(block => {
-                // Skip if already processed
-                if (block.querySelector('.task-checkbox')) return;
-                
-                const originalText = block.textContent;
-                block.innerHTML = `
-                    <div class="task-checkbox" onclick="toggleTask(event, this)"></div>
-                    <div class="task-text">${originalText}</div>
-                `;
-                
-                if (!block.classList.contains('editable')) {
-                    block.classList.add('editable');
-                    block.onclick = function() { editTask(this); };
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+                if (task
