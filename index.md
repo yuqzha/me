@@ -19,8 +19,6 @@ With help from Claude, I made a plan for the summer- half work half break balanc
 It's a **interactive 18-day schedule** for work and leisure balance
 [Summer calendar](research_calendar.html)
 
-[Summer calender export option added](research_calendar_v2.html)
-
     **Features I like**
       - calender structure with color
       - editable on html (localStorage functionality)
@@ -28,7 +26,12 @@ It's a **interactive 18-day schedule** for work and leisure balance
 
 Most importantly, let's hope this works well to help me be productive and focused!
 
+2. **Problem**:Although the above calendar works that changes can be seen using the same browser on the condition that the browser data are not cleared, I would like to be able to have an updated file that I can keep in the end.
+**Solution**: export option added to the html so it can be saved and updated when needed:  [Summer calender export option added](research_calendar_v2.html)
 
+This is becoming cool!  
+
+ 
 ## Contact
 
 Feel free to reach out:
