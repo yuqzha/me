@@ -15,9 +15,10 @@ I have absolutely no webpage coding skills, but I plan to have some fun here �
 
 ## Creative fun ䷢䷢
 1. This is my day #2 playing with GitHub webpage
-With help from Claude, I made a plan for the summer- half work half break balance. It's a **interactive 18-day schedule** for work and leisure balance
+With help from Claude, I made a plan for the summer- half work half break balance.
+It's a **interactive 18-day schedule** for work and leisure balance
 [Summer calendar](research_calendar.html)
-
+[Summer calender export option added](research_calendar_v2.html)
     **Features I like**
       - calender structure with color
       - editable on html (localStorage functionality)
