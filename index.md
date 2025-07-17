@@ -19,7 +19,7 @@ With help from Claude, I made a plan for the summer- half work half break balanc
 It's a **interactive 18-day schedule** for work and leisure balance
 [Summer calendar](research_calendar.html)
 
-    **Features I like**
+    Features I like
       - calender structure with color
       - editable on html (localStorage functionality)
       - checkbox (who doesn't like to tick off something when it's done 🙌)
