@@ -28,10 +28,12 @@ Most importantly, let's hope this works well to help me be productive and focuse
 
 1.2 **Problem**:Although the above calendar works that changes can be seen using the same browser on the condition that the browser data are not cleared, I would like to be able to have an updated file that I can keep in the end.
 
-**Solution**: export option added to the html so it can be saved and updated when needed:  [Summer calender export option added](research_calendar_v2.html)
+**Solution**: export option added to the html so it can be saved and updated when needed:  [Summer calendar export option added](research_calendar_v2.html)
 
 This is becoming cool!  
 
+1.3 adding note feature
+[Summer calendar v3](research_calendar_v3.html)
  
 ## Contact
 
