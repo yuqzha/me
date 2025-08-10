@@ -34,6 +34,8 @@ This is becoming cool!
 
 1.3 adding note feature
 [Summer calendar v3](research_calendar_v3.html)
+
+continued for [Aug](research_calender 25-08.html)
  
 ## Contact
 
