@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Calendar - Weeks 35-40</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .calendar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .control-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .reset-btn {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .reset-btn:hover {
+            background: #c82333;
+        }
+        
+        .status-indicator {
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+            background: #28a745;
+            color: white;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #e9ecef;
+            padding: 1px;
+        }
+        
+        .day {
+            background: white;
+            min-height: 140px;
+            padding: 10px;
+            position: relative;
+            border-radius: 4px;
+        }
+        
+        .day-header {
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        
+        .day-number {
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .academic-work {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-bottom: 3px;
+            border-left: 3px solid #2196f3;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .research-work {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-bottom: 3px;
+            border-left: 3px solid #4caf50;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .reference-work {
+            background: #fff3e0;
+            color: #f57c00;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-bottom: 3px;
+            border-left: 3px solid #ff9800;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .rest-time {
+            background: #f3e5f5;
+            color: #7b1fa2;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-bottom: 3px;
+            border-left: 3px solid #9c27b0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .priority-note {
+            background: #ffebee;
+            color: #c62828;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            border-left: 3px solid #f44336;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .task-checkbox {
+            width: 16px;
+            height: 16px;
+            border: 2px solid currentColor;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+        
+        .task-checkbox:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .task-checkbox.checked {
+            background-color: currentColor;
+            color: white;
+        }
+        
+        .task-checkbox.checked::before {
+            content: '✓';
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .task-text {
+            flex: 1;
+            transition: all 0.2s ease;
+        }
+        
+        .task-completed .task-text {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
+        .task-completed {
+            opacity: 0.8;
+        }
+        
+        .edit-mode {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .edit-mode:hover {
+            background: #34495e;
+            transform: translateY(-2px);
+        }
+        
+        .edit-mode.active {
+            background: #e74c3c;
+        }
+        
+        .editable {
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .editable:hover {
+            background-color: #f8f9fa !important;
+            outline: 2px dashed #007bff;
+        }
+        
+        .edit-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            z-index: 2000;
+            min-width: 300px;
+            max-width: 500px;
+        }
+        
+        .edit-popup textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        
+        .edit-popup button {
+            padding: 8px 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .save-btn {
+            background: #28a745;
+            color: white;
+        }
+        
+        .cancel-btn {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1500;
+        }
+        
+        .week-header {
+            grid-column: 1 / -1;
+            background: #2c3e50;
+            color: white;
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        
+        .today {
+            background: #fff9c4 !important;
+            border: 2px solid #ffc107;
+        }
+        
+        .weekend {
+            background: #f8f9fa;
+        }
+        
+        .notes-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .notes-panel.active {
+            right: 0;
+        }
+        
+        .notes-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+        
+        .notes-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .notes-content textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        
+        .close-notes {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        
+        .add-task-btn {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .day:hover .add-task-btn {
+            display: flex;
+        }
+        
+        .add-task-btn:hover {
+            background: #0056b3;
+        }
+        
+        .task-type-selector {
+            display: flex;
+            gap: 5px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        
+        .task-type-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+        
+        .task-type-academic { background: #e3f2fd; color: #1976d2; }
+        .task-type-research { background: #e8f5e8; color: #2e7d32; }
+        .task-type-reference { background: #fff3e0; color: #f57c00; }
+        .task-type-rest { background: #f3e5f5; color: #7b1fa2; }
+        .task-type-priority { background: #ffebee; color: #c62828; }
+    </style>
+</head>
+<body>
+    <div class="calendar-container">
+        <div class="edit-mode" onclick="toggleEditMode()">
+            <span id="edit-text">🖊️ Edit Mode</span>
+        </div>
+        
+        <div class="header">
+            <h1>Weekly Calendar</h1>
+            <p>August 25 - October 5, 2025 | Weeks 35-40</p>
+        </div>
+        
+        <div class="controls">
+            <div class="status-indicator">💾 Auto-saves locally</div>
+            <button class="control-btn reset-btn" onclick="resetCalendar()">🔄 Reset to Default</button>
+            <button class="control-btn" style="background: #28a745; color: white;" onclick="exportCalendar()">📤 Export HTML</button>
+            <button class="control-btn" style="background: #17a2b8; color: white;" onclick="toggleNotes()">📝 Notes</button>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #2196f3;"></div>
+                <span>Project Work</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #4caf50;"></div>
+                <span>Research & Development</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ff9800;"></div>
+                <span>Meetings & Communication</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #9c27b0;"></div>
+                <span>Personal Time</span>
+            </div>
+        </div>
+        
+        <div class="calendar">
+            <!-- Week 35 Header -->
+            <div class="week-header">Week 35: New Beginnings (Aug 25-31)</div>
+            
+            <!-- Week 35 Days -->
+            <div class="day today">
+                <div class="day-header">MON</div>
+                <div class="day-number">25</div>
+                <div class="academic-work editable" data-task-id="mon25-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Week planning session</div>
+                </div>
+                <div class="research-work editable" data-task-id="mon25-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Review project goals</div>
+                </div>
+                <div class="priority-note editable" data-task-id="mon25-3">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Week 35 kickoff</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">TUE</div>
+                <div class="day-number">26</div>
+                <div class="academic-work editable" data-task-id="tue26-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Focus work session</div>
+                </div>
+                <div class="reference-work editable" data-task-id="tue26-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Team check-in</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">WED</div>
+                <div class="day-number">27</div>
+                <div class="research-work editable" data-task-id="wed27-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Deep work morning</div>
+                </div>
+                <div class="rest-time editable" data-task-id="wed27-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Afternoon break</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">THU</div>
+                <div class="day-number">28</div>
+                <div class="academic-work editable" data-task-id="thu28-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Project development</div>
+                </div>
+                <div class="reference-work editable" data-task-id="thu28-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Progress review</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">FRI</div>
+                <div class="day-number">29</div>
+                <div class="research-work editable" data-task-id="fri29-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Research time</div>
+                </div>
+                <div class="rest-time editable" data-task-id="fri29-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Weekend prep</div>
+                </div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SAT</div>
+                <div class="day-number">30</div>
+                <div class="rest-time editable" data-task-id="sat30-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Personal time</div>
+                </div>
+                <div class="priority-note editable" data-task-id="sat30-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Relax & recharge</div>
+                </div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SUN</div>
+                <div class="day-number">31</div>
+                <div class="rest-time editable" data-task-id="sun31-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Sunday planning</div>
+                </div>
+                <div class="academic-work editable" data-task-id="sun31-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Light prep work</div>
+                </div>
+            </div>
+            
+            <!-- Week 36 Header -->
+            <div class="week-header">Week 36: Building Momentum (Sep 1-7)</div>
+            
+            <!-- Week 36 Days -->
+            <div class="day">
+                <div class="day-header">MON</div>
+                <div class="day-number">1</div>
+                <div class="academic-work editable" data-task-id="mon1-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">September kickoff</div>
+                </div>
+                <div class="research-work editable" data-task-id="mon1-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">New month goals</div>
+                </div>
+                <div class="priority-note editable" data-task-id="mon1-3">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Fresh start energy</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">TUE</div>
+                <div class="day-number">2</div>
+                <div class="research-work editable" data-task-id="tue2-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Deep dive session</div>
+                </div>
+                <div class="reference-work editable" data-task-id="tue2-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Stakeholder update</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">WED</div>
+                <div class="day-number">3</div>
+                <div class="academic-work editable" data-task-id="wed3-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Core work focus</div>
+                </div>
+                <div class="rest-time editable" data-task-id="wed3-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Midweek pause</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">THU</div>
+                <div class="day-number">4</div>
+                <div class="research-work editable" data-task-id="thu4-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Analysis work</div>
+                </div>
+                <div class="reference-work editable" data-task-id="thu4-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Collaboration time</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">FRI</div>
+                <div class="day-number">5</div>
+                <div class="academic-work editable" data-task-id="fri5-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Week wrap-up</div>
+                </div>
+                <div class="rest-time editable" data-task-id="fri5-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Weekend transition</div>
+                </div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SAT</div>
+                <div class="day-number">6</div>
+                <div class="rest-time editable" data-task-id="sat6-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Personal projects</div>
+                </div>
+                <div class="priority-note editable" data-task-id="sat6-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Self-care Saturday</div>
+                </div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SUN</div>
+                <div class="day-number">7</div>
+                <div class="rest-time editable" data-task-id="sun7-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Reflection time</div>
+                </div>
+                <div class="academic-work editable" data-task-id="sun7-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Next week preview</div>
+                </div>
+            </div>
+            
+            <!-- Week 37 Header -->
+            <div class="week-header">Week 37: Mid-Point Progress (Sep 8-14)</div>
+            
+            <!-- Week 37 Days -->
+            <div class="day">
+                <div class="day-header">MON</div>
+                <div class="day-number">8</div>
+                <div class="research-work editable" data-task-id="mon8-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Research acceleration</div>
+                </div>
+                <div class="academic-work editable" data-task-id="mon8-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Progress evaluation</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">TUE</div>
+                <div class="day-number">9</div>
+                <div class="reference-work editable" data-task-id="tue9-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Important meetings</div>
+                </div>
+                <div class="academic-work editable" data-task-id="tue9-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Project milestones</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">WED</div>
+                <div class="day-number">10</div>
+                <div class="research-work editable" data-task-id="wed10-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Innovation time</div>
+                </div>
+                <div class="rest-time editable" data-task-id="wed10-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Creative break</div>
+                </div>
+                <div class="priority-note editable" data-task-id="wed10-3">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Midweek check-in</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">THU</div>
+                <div class="day-number">11</div>
+                <div class="academic-work editable" data-task-id="thu11-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Execution focus</div>
+                </div>
+                <div class="reference-work editable" data-task-id="thu11-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Team synchronization</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">FRI</div>
+                <div class="day-number">12</div>
+                <div class="research-work editable" data-task-id="fri12-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Final sprint</div>
+                </div>
+                <div class="rest-time editable" data-task-id="fri12-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Week celebration</div>
+                </div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SAT</div>
+                <div class="day-number">13</div>
+                <div class="rest-time editable" data-task-id="sat13-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Weekend activities</div>
+                </div>
+                <div class="priority-note editable" data-task-id="sat13-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Balance & joy</div>
+                </div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SUN</div>
+                <div class="day-number">14</div>
+                <div class="rest-time editable" data-task-id="sun14-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Sunday reset</div>
+                </div>
+                <div class="academic-work editable" data-task-id="sun14-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Gentle preparation</div>
+                </div>
+            </div>
+            
+            <!-- Week 38 Header -->
+            <div class="week-header">Week 38: Acceleration Phase (Sep 15-21)</div>
+            
+            <!-- Week 38 Days -->
+            <div class="day">
+                <div class="day-header">MON</div>
+                <div class="day-number">15</div>
+                <div class="academic-work editable" data-task-id="mon15-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">High-impact work</div>
+                </div>
+                <div class="research-work editable" data-task-id="mon15-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Strategic initiatives</div>
+                </div>
+                <div class="priority-note editable" data-task-id="mon15-3">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Acceleration week</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">TUE</div>
+                <div class="day-number">16</div>
+                <div class="research-work editable" data-task-id="tue16-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Advanced development</div>
+                </div>
+                <div class="reference-work editable" data-task-id="tue16-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Key conversations</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">WED</div>
+                <div class="day-number">17</div>
+                <div class="academic-work editable" data-task-id="wed17-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Complex problem solving</div>
+                </div>
+                <div class="rest-time editable" data-task-id="wed17-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Recovery time</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">THU</div>
+                <div class="day-number">18</div>
+                <div class="research-work editable" data-task-id="thu18-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Breakthrough session</div>
+                </div>
+                <div class="reference-work editable" data-task-id="thu18-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Results sharing</div>
+                </div>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">FRI</div>
+                <div class="day-number">19</div>
+                <div class="academic-work editable" data-task-id="fri19-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Integration work</div>
+                </div>
+                <div class="rest-time editable" data-task-id="fri19-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Well-deserved break</div>
+                </div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SAT</div>
+                <div class="day-number">20</div>
+                <div class="rest-time editable" data-task-id="sat20-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Recharge day</div>
+                </div>
+                <div class="priority-note editable" data-task-id="sat20-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Energy restoration</div>
+                </div>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SUN</div>
+                <div class="day-number">21</div>
+                <div class="rest-time editable" data-task-id="sun21-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">
