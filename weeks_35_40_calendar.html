@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Calendar - Weeks 35-40</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .calendar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .control-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .reset-btn {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .reset-btn:hover {
+            background: #c82333;
+        }
+        
+        .export-btn {
+            background: #28a745;
+            color: white;
+        }
+        
+        .export-btn:hover {
+            background: #218838;
+        }
+        
+        .notes-btn {
+            background: #17a2b8;
+            color: white;
+        }
+        
+        .notes-btn:hover {
+            background: #138496;
+        }
+        
+        .status-indicator {
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+            background: #28a745;
+            color: white;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #e9ecef;
+            padding: 1px;
+        }
+        
+        .day {
+            background: white;
+            min-height: 140px;
+            padding: 10px;
+            position: relative;
+            border-radius: 4px;
+        }
+        
+        .day-header {
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        
+        .day-number {
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .academic-work {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-bottom: 3px;
+            border-left: 3px solid #2196f3;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .research-work {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-bottom: 3px;
+            border-left: 3px solid #4caf50;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .reference-work {
+            background: #fff3e0;
+            color: #f57c00;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-bottom: 3px;
+            border-left: 3px solid #ff9800;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .rest-time {
+            background: #f3e5f5;
+            color: #7b1fa2;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-bottom: 3px;
+            border-left: 3px solid #9c27b0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .priority-note {
+            background: #ffebee;
+            color: #c62828;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            border-left: 3px solid #f44336;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .task-checkbox {
+            width: 16px;
+            height: 16px;
+            border: 2px solid currentColor;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+        
+        .task-checkbox:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .task-checkbox.checked {
+            background-color: currentColor;
+            color: white;
+        }
+        
+        .task-checkbox.checked::before {
+            content: '✓';
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .task-text {
+            flex: 1;
+            transition: all 0.2s ease;
+        }
+        
+        .task-completed .task-text {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
+        .task-completed {
+            opacity: 0.8;
+        }
+        
+        .edit-mode {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .edit-mode:hover {
+            background: #34495e;
+            transform: translateY(-2px);
+        }
+        
+        .edit-mode.active {
+            background: #e74c3c;
+        }
+        
+        .editable {
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .editable:hover {
+            background-color: #f8f9fa !important;
+            outline: 2px dashed #007bff;
+        }
+        
+        .edit-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            z-index: 2000;
+            min-width: 300px;
+            max-width: 500px;
+        }
+        
+        .edit-popup textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        
+        .edit-popup button {
+            padding: 8px 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .save-btn {
+            background: #28a745;
+            color: white;
+        }
+        
+        .cancel-btn {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1500;
+        }
+        
+        .week-header {
+            grid-column: 1 / -1;
+            background: #2c3e50;
+            color: white;
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        
+        .today {
+            background: #fff9c4 !important;
+            border: 2px solid #ffc107;
+        }
+        
+        .weekend {
+            background: #f8f9fa;
+        }
+        
+        .notes-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .notes-panel.active {
+            right: 0;
+        }
+        
+        .notes-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .notes-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .notes-content textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        
+        .close-notes {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        
+        .add-task-btn {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .day:hover .add-task-btn {
+            display: flex;
+        }
+        
+        .add-task-btn:hover {
+            background: #0056b3;
+        }
+        
+        .task-type-selector {
+            display: flex;
+            gap: 5px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        
+        .task-type-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+        
+        .task-type-academic { background: #e3f2fd; color: #1976d2; }
+        .task-type-research { background: #e8f5e8; color: #2e7d32; }
+        .task-type-reference { background: #fff3e0; color: #f57c00; }
+        .task-type-rest { background: #f3e5f5; color: #7b1fa2; }
+        .task-type-priority { background: #ffebee; color: #c62828; }
+    </style>
+</head>
+<body>
+    <div class="calendar-container">
+        <div class="edit-mode" onclick="toggleEditMode()">
+            <span id="edit-text">🖊️ Edit Mode</span>
+        </div>
+        
+        <div class="header">
+            <h1>Weekly Calendar</h1>
+            <p>August 25 - October 5, 2025 | Weeks 35-40</p>
+        </div>
+        
+        <div class="controls">
+            <div class="status-indicator">💾 Auto-saves locally</div>
+            <button class="control-btn reset-btn" onclick="resetCalendar()">🔄 Reset to Default</button>
+            <button class="control-btn export-btn" onclick="exportCalendar()">📤 Export HTML</button>
+            <button class="control-btn notes-btn" onclick="toggleNotes()">📝 Notes</button>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #2196f3;"></div>
+                <span>Project Work</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #4caf50;"></div>
+                <span>Research & Development</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ff9800;"></div>
+                <span>Meetings & Communication</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #9c27b0;"></div>
+                <span>Personal Time</span>
+            </div>
+        </div>
+        
+        <div class="calendar">
+            <!-- Week 35 Header -->
+            <div class="week-header">Week 35: New Beginnings (Aug 25-31)</div>
+            
+            <!-- Week 35 Days -->
+            <div class="day today">
+                <div class="day-header">MON</div>
+                <div class="day-number">25</div>
+                <div class="academic-work editable" data-task-id="mon25-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Week planning session</div>
+                </div>
+                <div class="research-work editable" data-task-id="mon25-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Review project goals</div>
+                </div>
+                <div class="priority-note editable" data-task-id="mon25-3">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Week 35 kickoff</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">TUE</div>
+                <div class="day-number">26</div>
+                <div class="academic-work editable" data-task-id="tue26-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Focus work session</div>
+                </div>
+                <div class="reference-work editable" data-task-id="tue26-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Team check-in</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">WED</div>
+                <div class="day-number">27</div>
+                <div class="research-work editable" data-task-id="wed27-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Deep work morning</div>
+                </div>
+                <div class="rest-time editable" data-task-id="wed27-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Afternoon break</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">THU</div>
+                <div class="day-number">28</div>
+                <div class="academic-work editable" data-task-id="thu28-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Project development</div>
+                </div>
+                <div class="reference-work editable" data-task-id="thu28-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Progress review</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">FRI</div>
+                <div class="day-number">29</div>
+                <div class="research-work editable" data-task-id="fri29-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Research time</div>
+                </div>
+                <div class="rest-time editable" data-task-id="fri29-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Weekend prep</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SAT</div>
+                <div class="day-number">30</div>
+                <div class="rest-time editable" data-task-id="sat30-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Personal time</div>
+                </div>
+                <div class="priority-note editable" data-task-id="sat30-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Relax & recharge</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SUN</div>
+                <div class="day-number">31</div>
+                <div class="rest-time editable" data-task-id="sun31-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Sunday planning</div>
+                </div>
+                <div class="academic-work editable" data-task-id="sun31-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Light prep work</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <!-- Week 36 Header -->
+            <div class="week-header">Week 36: Building Momentum (Sep 1-7)</div>
+            
+            <!-- Week 36 Days -->
+            <div class="day">
+                <div class="day-header">MON</div>
+                <div class="day-number">1</div>
+                <div class="academic-work editable" data-task-id="mon1-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">September kickoff</div>
+                </div>
+                <div class="research-work editable" data-task-id="mon1-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">New month goals</div>
+                </div>
+                <div class="priority-note editable" data-task-id="mon1-3">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Fresh start energy</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">TUE</div>
+                <div class="day-number">2</div>
+                <div class="research-work editable" data-task-id="tue2-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Deep dive session</div>
+                </div>
+                <div class="reference-work editable" data-task-id="tue2-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Stakeholder update</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">WED</div>
+                <div class="day-number">3</div>
+                <div class="academic-work editable" data-task-id="wed3-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Core work focus</div>
+                </div>
+                <div class="rest-time editable" data-task-id="wed3-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Midweek pause</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">THU</div>
+                <div class="day-number">4</div>
+                <div class="research-work editable" data-task-id="thu4-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Analysis work</div>
+                </div>
+                <div class="reference-work editable" data-task-id="thu4-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Collaboration time</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">FRI</div>
+                <div class="day-number">5</div>
+                <div class="academic-work editable" data-task-id="fri5-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Week wrap-up</div>
+                </div>
+                <div class="rest-time editable" data-task-id="fri5-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Weekend transition</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SAT</div>
+                <div class="day-number">6</div>
+                <div class="rest-time editable" data-task-id="sat6-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Personal projects</div>
+                </div>
+                <div class="priority-note editable" data-task-id="sat6-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Self-care Saturday</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SUN</div>
+                <div class="day-number">7</div>
+                <div class="rest-time editable" data-task-id="sun7-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Reflection time</div>
+                </div>
+                <div class="academic-work editable" data-task-id="sun7-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Next week preview</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <!-- Week 37 Header -->
+            <div class="week-header">Week 37: Mid-Point Progress (Sep 8-14)</div>
+            
+            <!-- Week 37 Days -->
+            <div class="day">
+                <div class="day-header">MON</div>
+                <div class="day-number">8</div>
+                <div class="research-work editable" data-task-id="mon8-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Research acceleration</div>
+                </div>
+                <div class="academic-work editable" data-task-id="mon8-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Progress evaluation</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">TUE</div>
+                <div class="day-number">9</div>
+                <div class="reference-work editable" data-task-id="tue9-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Important meetings</div>
+                </div>
+                <div class="academic-work editable" data-task-id="tue9-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Project milestones</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">WED</div>
+                <div class="day-number">10</div>
+                <div class="research-work editable" data-task-id="wed10-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Innovation time</div>
+                </div>
+                <div class="rest-time editable" data-task-id="wed10-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Creative break</div>
+                </div>
+                <div class="priority-note editable" data-task-id="wed10-3">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Midweek check-in</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">THU</div>
+                <div class="day-number">11</div>
+                <div class="academic-work editable" data-task-id="thu11-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Execution focus</div>
+                </div>
+                <div class="reference-work editable" data-task-id="thu11-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Team synchronization</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">FRI</div>
+                <div class="day-number">12</div>
+                <div class="research-work editable" data-task-id="fri12-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Final sprint</div>
+                </div>
+                <div class="rest-time editable" data-task-id="fri12-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Week celebration</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SAT</div>
+                <div class="day-number">13</div>
+                <div class="rest-time editable" data-task-id="sat13-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Weekend activities</div>
+                </div>
+                <div class="priority-note editable" data-task-id="sat13-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Balance & joy</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SUN</div>
+                <div class="day-number">14</div>
+                <div class="rest-time editable" data-task-id="sun14-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Sunday reset</div>
+                </div>
+                <div class="academic-work editable" data-task-id="sun14-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Gentle preparation</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <!-- Week 38 Header -->
+            <div class="week-header">Week 38: Acceleration Phase (Sep 15-21)</div>
+            
+            <!-- Week 38 Days -->
+            <div class="day">
+                <div class="day-header">MON</div>
+                <div class="day-number">15</div>
+                <div class="academic-work editable" data-task-id="mon15-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">High-impact work</div>
+                </div>
+                <div class="research-work editable" data-task-id="mon15-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Strategic initiatives</div>
+                </div>
+                <div class="priority-note editable" data-task-id="mon15-3">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Acceleration week</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">TUE</div>
+                <div class="day-number">16</div>
+                <div class="research-work editable" data-task-id="tue16-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Advanced development</div>
+                </div>
+                <div class="reference-work editable" data-task-id="tue16-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Key conversations</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">WED</div>
+                <div class="day-number">17</div>
+                <div class="academic-work editable" data-task-id="wed17-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Complex problem solving</div>
+                </div>
+                <div class="rest-time editable" data-task-id="wed17-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Recovery time</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">THU</div>
+                <div class="day-number">18</div>
+                <div class="research-work editable" data-task-id="thu18-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Breakthrough session</div>
+                </div>
+                <div class="reference-work editable" data-task-id="thu18-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Results sharing</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">FRI</div>
+                <div class="day-number">19</div>
+                <div class="academic-work editable" data-task-id="fri19-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Integration work</div>
+                </div>
+                <div class="rest-time editable" data-task-id="fri19-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Well-deserved break</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SAT</div>
+                <div class="day-number">20</div>
+                <div class="rest-time editable" data-task-id="sat20-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Recharge day</div>
+                </div>
+                <div class="priority-note editable" data-task-id="sat20-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Energy restoration</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SUN</div>
+                <div class="day-number">21</div>
+                <div class="rest-time editable" data-task-id="sun21-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Sunday reflection</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <!-- Week 39 Header -->
+            <div class="week-header">Week 39: Final Push (Sep 22-28)</div>
+            
+            <!-- Week 39 Days -->
+            <div class="day">
+                <div class="day-header">MON</div>
+                <div class="day-number">22</div>
+                <div class="academic-work editable" data-task-id="mon22-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Final phase launch</div>
+                </div>
+                <div class="research-work editable" data-task-id="mon22-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Completion focus</div>
+                </div>
+                <div class="priority-note editable" data-task-id="mon22-3">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Final push begins</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">TUE</div>
+                <div class="day-number">23</div>
+                <div class="research-work editable" data-task-id="tue23-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Critical deliverables</div>
+                </div>
+                <div class="reference-work editable" data-task-id="tue23-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Final reviews</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">WED</div>
+                <div class="day-number">24</div>
+                <div class="academic-work editable" data-task-id="wed24-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Quality assurance</div>
+                </div>
+                <div class="rest-time editable" data-task-id="wed24-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Stress management</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">THU</div>
+                <div class="day-number">25</div>
+                <div class="research-work editable" data-task-id="thu25-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Final preparations</div>
+                </div>
+                <div class="reference-work editable" data-task-id="thu25-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Last minute checks</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">FRI</div>
+                <div class="day-number">26</div>
+                <div class="academic-work editable" data-task-id="fri26-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Finalization work</div>
+                </div>
+                <div class="rest-time editable" data-task-id="fri26-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Preparation for weekend</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SAT</div>
+                <div class="day-number">27</div>
+                <div class="rest-time editable" data-task-id="sat27-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Recovery weekend</div>
+                </div>
+                <div class="priority-note editable" data-task-id="sat27-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Celebrate progress</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SUN</div>
+                <div class="day-number">28</div>
+                <div class="rest-time editable" data-task-id="sun28-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Week reflection</div>
+                </div>
+                <div class="academic-work editable" data-task-id="sun28-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">October preparation</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <!-- Week 40 Header -->
+            <div class="week-header">Week 40: Achievement & Transition (Sep 29 - Oct 5)</div>
+            
+            <!-- Week 40 Days -->
+            <div class="day">
+                <div class="day-header">MON</div>
+                <div class="day-number">29</div>
+                <div class="academic-work editable" data-task-id="mon29-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">New week energy</div>
+                </div>
+                <div class="research-work editable" data-task-id="mon29-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Transition planning</div>
+                </div>
+                <div class="priority-note editable" data-task-id="mon29-3">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Final week begins</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">TUE</div>
+                <div class="day-number">30</div>
+                <div class="research-work editable" data-task-id="tue30-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Consolidation work</div>
+                </div>
+                <div class="reference-work editable" data-task-id="tue30-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">September wrap-up</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">WED</div>
+                <div class="day-number">1</div>
+                <div class="academic-work editable" data-task-id="wed1-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">October kickoff</div>
+                </div>
+                <div class="rest-time editable" data-task-id="wed1-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">New month energy</div>
+                </div>
+                <div class="priority-note editable" data-task-id="wed1-3">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Fresh October start</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">THU</div>
+                <div class="day-number">2</div>
+                <div class="research-work editable" data-task-id="thu2-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Strategic planning</div>
+                </div>
+                <div class="reference-work editable" data-task-id="thu2-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Future roadmap</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-header">FRI</div>
+                <div class="day-number">3</div>
+                <div class="academic-work editable" data-task-id="fri3-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Achievement review</div>
+                </div>
+                <div class="rest-time editable" data-task-id="fri3-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Weekend planning</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SAT</div>
+                <div class="day-number">4</div>
+                <div class="rest-time editable" data-task-id="sat4-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Celebration time</div>
+                </div>
+                <div class="priority-note editable" data-task-id="sat4-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Acknowledge achievements</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+            
+            <div class="day weekend">
+                <div class="day-header">SUN</div>
+                <div class="day-number">5</div>
+                <div class="rest-time editable" data-task-id="sun5-1">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Calendar completion</div>
+                </div>
+                <div class="priority-note editable" data-task-id="sun5-2">
+                    <div class="task-checkbox"></div>
+                    <div class="task-text">Week 40 complete! 🎉</div>
+                </div>
+                <button class="add-task-btn" onclick="addNewTask(this)" title="Add new task">+</button>
+            </div>
+        </div>
+        
+        <!-- Notes Panel -->
+        <div class="notes-panel" id="notesPanel">
+            <div class="notes-header">
+                <h3 style="margin: 0;">Personal Notes</h3>
+                <button class="close-notes" onclick="toggleNotes()">×</button>
+            </div>
+            <div class="notes-content">
+                <textarea id="personalNotes" placeholder="Add your personal notes, reflections, and thoughts here..."></textarea>
+                <div style="margin-top: 15px;">
+                    <h4>Quick Tips:</h4>
+                    <ul style="font-size: 13px; color: #666;">
+                        <li>Click the + button in any day to add new tasks</li>
+                        <li>Click any task to edit it in Edit Mode</li>
+                        <li>Check off completed tasks</li>
+                        <li>Your progress is automatically saved locally</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let editMode = false;
+        let currentEditElement = null;
+        
+        // Storage keys
+        const STORAGE_KEY = 'weeks_35_40_calendar';
+        const NOTES_KEY = 'weeks_35_40_notes';
+        
+        // Task counter for unique IDs
+        let taskCounter = 1000;
+        
+        // Initialize calendar with saved data
+        function initializeCalendar() {
+            loadCalendarData();
+            loadNotes();
+            setupEventListeners();
+        }
+        
+        // Save calendar data to localStorage
+        function saveCalendarData() {
+            const data = {
+                tasks: {},
+                checkboxStates: {},
+                timestamp: Date.now()
+            };
+            
+            // Save task texts
+            document.querySelectorAll('[data-task-id]').forEach(element => {
+                const taskId = element.getAttribute('data-task-id');
+                const taskText = element.querySelector('.task-text');
+                if (taskText) {
+                    data.tasks[taskId] = taskText.textContent;
+                }
+                
+                // Save checkbox states
+                const checkbox = element.querySelector('.task-checkbox');
+                if (checkbox) {
+                    data.checkboxStates[taskId] = checkbox.classList.contains('checked');
+                }
+            });
+            
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+        
+        // Load calendar data from localStorage
+        function loadCalendarData() {
+            try {
+                const savedData = localStorage.getItem(STORAGE_KEY);
+                if (!savedData) return;
+                
+                const data = JSON.parse(savedData);
+                
+                // Restore task texts
+                if (data.tasks) {
+                    Object.keys(data.tasks).forEach(taskId => {
+                        const element = document.querySelector(`[data-task-id="${taskId}"]`);
+                        if (element) {
+                            const taskText = element.querySelector('.task-text');
+                            if (taskText) {
+                                taskText.textContent = data.tasks[taskId];
+                            }
+                        }
+                    });
+                }
+                
+                // Restore checkbox states
+                if (data.checkboxStates) {
+                    Object.keys(data.checkboxStates).forEach(taskId => {
+                        const element = document.querySelector(`[data-task-id="${taskId}"]`);
+                        if (element) {
+                            const checkbox = element.querySelector('.task-checkbox');
+                            if (checkbox && data.checkboxStates[taskId]) {
+                                checkbox.classList.add('checked');
+                                element.classList.add('task-completed');
+                            }
+                        }
+                    });
+                }
+                
+                // Update task counter based on existing IDs
+                const existingIds = Object.keys(data.tasks || {});
+                const numericIds = existingIds
+                    .map(id => parseInt(id.split('-').pop()))
+                    .filter(num => !isNaN(num));
+                if (numericIds.length > 0) {
+                    taskCounter = Math.max(...numericIds, taskCounter);
+                }
+            } catch (error) {
+                console.error('Error loading calendar data:', error);
+            }
+        }
+        
+        // Save and load notes
+        function saveNotes() {
+            const notes = document.getElementById('personalNotes').value;
+            localStorage.setItem(NOTES_KEY, notes);
+        }
+        
+        function loadNotes() {
+            const notes = localStorage.getItem(NOTES_KEY);
+            if (notes) {
+                document.getElementById('personalNotes').value = notes;
+            }
+        }
+        
+        // Toggle notes panel
+        function toggleNotes() {
+            const panel = document.getElementById('notesPanel');
+            panel.classList.toggle('active');
+            
+            // Save notes when closing
+            if (!panel.classList.contains('active')) {
+                saveNotes();
+            }
+        }
+        
+        // Export calendar as HTML
+        function exportCalendar() {
+            const calendarHTML = document.documentElement.outerHTML;
+            const blob = new Blob([calendarHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'calendar_weeks_35_40.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Show success message
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Exported!';
+            btn.style.background = '#28a745';
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '#28a745';
+            }, 2000);
+        }
+        
+        // Add new task to a day
+        function addNewTask(button) {
+            const day = button.closest('.day');
+            if (!day) return;
+            
+            // Create task type selector popup
+            const overlay = document.createElement('div');
+            overlay.className = 'overlay';
+            overlay.onclick = () => closeTaskSelector();
+            
+            const popup = document.createElement('div');
+            popup.className = 'edit-popup';
+            popup.innerHTML = `
+                <h3>Add New Task</h3>
+                <div class="task-type-selector">
+                    <button class="task-type-btn task-type-academic" onclick="createNewTask('academic-work', event)">Project Work</button>
+                    <button class="task-type-btn task-type-research" onclick="createNewTask('research-work', event)">Research</button>
+                    <button class="task-type-btn task-type-reference" onclick="createNewTask('reference-work', event)">Meeting</button>
+                    <button class="task-type-btn task-type-rest" onclick="createNewTask('rest-time', event)">Personal</button>
+                    <button class="task-type-btn task-type-priority" onclick="createNewTask('priority-note', event)">Priority</button>
+                </div>
+                <textarea id="new-task-text" placeholder="Enter task description..."></textarea>
+                <div style="text-align: right; margin-top: 10px;">
+                    <button class="cancel-btn" onclick="closeTaskSelector()">Cancel</button>
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+            document.body.appendChild(popup);
+            
+            // Store reference to the day
+            window.currentTaskDay = day;
+            
+            // Focus on textarea
+            document.getElementById('new-task-text').focus();
+        }
+        
+        function createNewTask(taskType, event) {
+            const day = window.currentTaskDay;
+            const taskText = document.getElementById('new-task-text').value.trim();
+            
+            if (!taskText) {
+                alert('Please enter a task description');
+                return;
+            }
+            
+            // Generate unique task ID
+            taskCounter++;
+            const dayNumber = day.querySelector('.day-number').textContent;
+            const taskId = `new${dayNumber}-${taskCounter}`;
+            
+            // Create new task element
+            const taskElement = document.createElement('div');
+            taskElement.className = `${taskType} editable`;
+            taskElement.setAttribute('data-task-id', taskId);
+            taskElement.innerHTML = `
+                <div class="task-checkbox"></div>
+                <div class="task-text">${taskText}</div>
+            `;
+            
+            // Insert before the add button
+            const addBtn = day.querySelector('.add-task-btn');
+            day.insertBefore(taskElement, addBtn);
+            
+            // Set up event listeners for the new task
+            setupTaskEventListeners(taskElement);
+            
+            // Save the new task
+            saveCalendarData();
+            
+            // Close popup
+            closeTaskSelector();
+        }
+        
+        function closeTaskSelector() {
+            const overlay = document.querySelector('.overlay');
+            const popup = document.querySelector('.edit-popup');
+            
+            if (overlay) overlay.remove();
+            if (popup) popup.remove();
+            
+            window.currentTaskDay = null;
+        }
+        
+        // Reset calendar to default state
+        function resetCalendar() {
+            if (confirm('Are you sure you want to reset the calendar to its default state? This will remove all your changes and added tasks.')) {
+                localStorage.removeItem(STORAGE_KEY);
+                localStorage.removeItem(NOTES_KEY);
+                location.reload();
+            }
+        }
+        
+        // Setup event listeners for a specific task element
+        function setupTaskEventListeners(element) {
+            element.addEventListener('click', function(e) {
+                if (editMode && !e.target.classList.contains('task-checkbox')) {
+                    editTask(this);
+                }
+            });
+            
+            // Add checkbox click handler
+            const checkbox = element.querySelector('.task-checkbox');
+            if (checkbox) {
+                checkbox.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    toggleTask(this);
+                });
+            }
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            // Add click handlers to all task elements
+            document.querySelectorAll('[data-task-id]').forEach(element => {
+                setupTaskEventListeners(element);
+            });
+            
+            // Notes textarea auto-save
+            document.getElementById('personalNotes').addEventListener('input', function() {
+                saveNotes();
+            });
+        }
+        
+        function toggleEditMode() {
+            editMode = !editMode;
+            const editButton = document.querySelector('.edit-mode');
+            const editText = document.getElementById('edit-text');
+            
+            if (editMode) {
+                editButton.classList.add('active');
+                editText.innerHTML = '✅ Exit Edit';
+                document.body.style.userSelect = 'none';
+            } else {
+                editButton.classList.remove('active');
+                editText.innerHTML = '🖊️ Edit Mode';
+                document.body.style.userSelect = 'auto';
+            }
+        }
+        
+        function editTask(element) {
+            if (!editMode) return;
+            
+            currentEditElement = element;
+            const taskText = element.querySelector('.task-text');
+            const currentText = taskText ? taskText.textContent : element.textContent;
+            
+            // Create overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'overlay';
+            overlay.onclick = closeEditPopup;
+            
+            // Create popup
+            const popup = document.createElement('div');
+            popup.className = 'edit-popup';
+            popup.innerHTML = `
+                <h3>Edit Task</h3>
+                <textarea id="edit-textarea" placeholder="Enter your task...">${currentText}</textarea>
+                <div style="text-align: right; margin-top: 10px;">
+                    <button class="cancel-btn" onclick="closeEditPopup()">Cancel</button>
+                    <button class="save-btn" onclick="saveEdit()">Save</button>
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+            document.body.appendChild(popup);
+            
+            // Focus on textarea
+            document.getElementById('edit-textarea').focus();
+            document.getElementById('edit-textarea').select();
+        }
+        
+        function saveEdit() {
+            const newText = document.getElementById('edit-textarea').value;
+            if (newText.trim() && currentEditElement) {
+                const taskText = currentEditElement.querySelector('.task-text');
+                if (taskText) {
+                    taskText.textContent = newText;
+                    // Save to localStorage
+                    saveCalendarData();
+                }
+            }
+            closeEditPopup();
+        }
+        
+        function toggleTask(checkbox) {
+            const taskBlock = checkbox.closest('[data-task-id]');
+            
+            if (checkbox.classList.contains('checked')) {
+                checkbox.classList.remove('checked');
+                taskBlock.classList.remove('task-completed');
+            } else {
+                checkbox.classList.add('checked');
+                taskBlock.classList.add('task-completed');
+            }
+            
+            // Save to localStorage
+            saveCalendarData();
+        }
+        
+        function closeEditPopup() {
+            const overlay = document.querySelector('.overlay');
+            const popup = document.querySelector('.edit-popup');
+            
+            if (overlay) overlay.remove();
+            if (popup) popup.remove();
+            
+            currentEditElement = null;
+        }
+        
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeEditPopup();
+                closeTaskSelector();
+                // Close notes panel if open
+                const notesPanel = document.getElementById('notesPanel');
+                if (notesPanel.classList.contains('active')) {
+                    toggleNotes();
+                }
+            }
+            if (e.key === 'Enter' && e.ctrlKey) {
+                if (document.getElementById('edit-textarea')) {
+                    saveEdit();
+                }
+            }
+            // Toggle notes with Ctrl+N
+            if (e.key === 'n' && e.ctrlKey) {
+                e.preventDefault();
+                toggleNotes();
+            }
+            // Toggle edit mode with Ctrl+E
+            if (e.key === 'e' && e.ctrlKey) {
+                e.preventDefault();
+                toggleEditMode();
+            }
+        });
+        
+        // Initialize calendar when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCalendar();
+        });
+        
+        // Auto-save when page is about to unload
+        window.addEventListener('beforeunload', function() {
+            saveCalendarData();
+            saveNotes();
+        });
+    </script>
+</body>
+</html>
