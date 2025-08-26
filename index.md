@@ -36,6 +36,8 @@ This is becoming cool!
 [Summer calendar v3](research_calendar_v3.html)
 
 continued for [Aug](research_calendar_2508.html)
+
+late [Aug to early Oct](weeks_35_40_calendar.html)
  
 ## Contact
 
